@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Even Squares Generator</title>
+<script>
+function generateEvenSquareList() {
+    // Step 1: Get input values from the form
+    let inputListStr = document.getElementById('inputList').value.trim();
+    let startIndex = parseInt(document.getElementById('startIndex').value.trim());
+    let endIndex = parseInt(document.getElementById('endIndex').value.trim());
+
+    // Convert the input list string to an array of integers
+    let inputList = inputListStr.substring(1, inputListStr.length - 1).split(',').map(num => parseInt(num));
+
+    // Step 2: Filter even numbers and map to their squares
+    let evenSquares = inputList.filter(num => num % 2 === 0).map(num => num * num);
+
+    // Step 3: Slice the original list based on start and end indices
+    let slicedSublist = inputList.slice(startIndex, endIndex);
+
+    // Step 4: Display the results
+    document.getElementById('result1').textContent = "List of squares of even numbers: " + evenSquares.toString();
+    document.getElementById('result2').textContent = "Sliced sublist from index " + startIndex + " to " + endIndex + ": " + slicedSublist.toString();
+}
+</script>
+</head>
+<body>
+<h2>Even Squares Generator</h2>
+<form onsubmit="event.preventDefault(); generateEvenSquareList();">
+    <label for="inputList">Enter the list of integers:</label><br>
+    <input type="text" id="inputList" name="inputList" value="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"><br><br>
+    
+    <label for="startIndex">Start index:</label><br>
+    <input type="number" id="startIndex" name="startIndex" value="2"><br><br>
+    
+    <label for="endIndex">End index:</label><br>
+    <input type="number" id="endIndex" name="endIndex" value="7"><br><br>
+    
+    <input type="submit" value="Generate">
+</form><br>
+
+<p id="result1"></p>
+<p id="result2"></p>
+
+</body>
+</html>

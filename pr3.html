@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Triangle Display</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+    }
+    .output {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Interactive Triangle Display</h2>
+    <div id="output" class="output">
+        <!-- Output will be displayed here -->
+    </div>
+    <hr>
+    <label for="choice">Choose an option:</label>
+    <select id="choice">
+        <option value="1">Display a right-angle triangle of ones</option>
+        <option value="2">Display a Palindromic Triangle</option>
+        <option value="3">Help</option>
+        <option value="4">Exit</option>
+    </select>
+    <button onclick="handleChoice()">Submit</button>
+</div>
+
+<script>
+function displayOnesTriangle() {
+    let n = prompt("Enter the number of rows for the triangle:");
+    let output = "";
+    for (let i = 1; i <= n; i++) {
+        output += Array(i).fill('1').join(' ') + '<br>';
+    }
+    document.getElementById('output').innerHTML = output;
+}
+
+function displayPalindromicTriangle() {
+    let n = prompt("Enter the number of rows for the triangle:");
+    let output = "";
+    for (let i = 1; i <= n; i++) {
+        let rowNumbers = Array.from({length: i}, (_, index) => index + 1);
+        let mirroredPart = rowNumbers.slice(0, -1).reverse();
+        let row = rowNumbers.concat(mirroredPart);
+        output += row.join(' ') + '<br>';
+    }
+    document.getElementById('output').innerHTML = output;
+}
+
+function displayHelp() {
+    let helpText = `
+    Menu:
+    1. Display a right-angle triangle of ones
+    2. Display a Palindromic Triangle
+    3. Help
+    4. Exit`;
+    document.getElementById('output').innerHTML = helpText;
+}
+
+function handleChoice() {
+    let choice = document.getElementById('choice').value;
+    switch (choice) {
+        case '1':
+            displayOnesTriangle();
+            break;
+        case '2':
+            displayPalindromicTriangle();
+            break;
+        case '3':
+            displayHelp();
+            break;
+        case '4':
+            alert("Exiting the program...");
+            break;
+        default:
+            alert("Invalid choice. Please choose a number between 1 and 4.");
+            break;
+    }
+}
+</script>
+
+</body>
+</html>

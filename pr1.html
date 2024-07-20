@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Registration Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+    }
+    form {
+        width: 300px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .error {
+        color: red;
+        font-size: 0.8em;
+        margin-top: 5px;
+    }
+</style>
+</head>
+<body>
+
+<form id="registrationForm" onsubmit="return validateForm()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+    <div id="usernameError" class="error"></div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <div id="passwordError" class="error"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <div id="emailError" class="error"></div>
+
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+// Function to validate the form inputs
+function validateForm() {
+    // Fetching input values
+    var username = document.getElementById('username').value.trim();
+    var password = document.getElementById('password').value.trim();
+    var email = document.getElementById('email').value.trim();
+
+    // Validating username
+    if (username === '') {
+        document.getElementById('usernameError').innerText = 'Username is invalid.';
+        return false;
+    } else if (username.length > 50) {
+        document.getElementById('usernameError').innerText = 'Username should not exceed 50 characters.';
+        return false;
+    } else {
+        document.getElementById('usernameError').innerText = '';
+    }
+
+    // Validating password
+    if (password.length < 8) {
+        document.getElementById('passwordError').innerText = 'Password is invalid!.';
+        return false;
+    } else if (!password.match(/[!@#$%^&*]/)) {
+        document.getElementById('passwordError').innerText = 'Password should contain at least one special symbol (!@#$%^&*).';
+        return false;
+    } else if (!password.match(/\d/)) {
+        document.getElementById('passwordError').innerText = 'Password should contain at least one number.';
+        return false;
+    } else if (!password.match(/[a-z]/) || !password.match(/[A-Z]/)) {
+        document.getElementById('passwordError').innerText = 'Password should contain at least one uppercase and one lowercase letter.';
+        return false;
+    } else {
+        document.getElementById('passwordError').innerText = '';
+    }
+
+    // Validating email
+    if (!email.includes('@')) {
+        document.getElementById('emailError').innerText = 'Email should contain "@" symbol.';
+        return false;
+    } else {
+        var parts = email.split('@');
+        if (parts.length !== 2 || parts[0].length === 0 || parts[1].length === 0) {
+            document.getElementById('emailError').innerText = 'Invalid email format.';
+            return false;
+        } else if (!parts[1].match(/^[a-zA-Z]+([\-\.]?[a-zA-Z]+)*\.[a-zA-Z]{2,}$/)) {
+            document.getElementById('emailError').innerText = 'Invalid domain in email.';
+            return false;
+        } else {
+            document.getElementById('emailError').innerText = '';
+        }
+    }
+
+    // If all validations pass
+    alert('Form validated successfully!');
+    return true;
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+

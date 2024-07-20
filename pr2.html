@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decimal to Binary Converter</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+    }
+    form {
+        width: 300px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input[type="number"],
+    input[type="submit"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    #result {
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<form id="decimalForm">
+    <label for="decimalInput">Enter a positive decimal number:</label>
+    <input type="number" id="decimalInput" name="decimalInput" min="1" required>
+    <input type="submit" value="Convert">
+</form>
+
+<div id="result"></div>
+
+<script>
+// Function to convert a positive decimal number to binary
+function decimalToBinary(decimalNumber) {
+    // Edge case: if the input is 0, its binary representation is "0"
+    if (decimalNumber === 0) {
+        return "0";
+    }
+
+    let binary = "";
+    let number = decimalNumber;
+
+    while (number > 0) {
+        // Step 1: Divide the number by 2
+        let remainder = number % 2;
+
+        // Step 2: Record the remainder (0 or 1)
+        binary = remainder.toString() + binary;
+
+        // Step 3: Update the number to be the quotient
+        number = Math.floor(number / 2);
+    }
+
+    return binary;
+}
+
+// Function to handle form submission
+function handleSubmit(event) {
+    event.preventDefault();
+
+    // Get input value from the form
+    let decimalInput = document.getElementById('decimalInput').value.trim();
+
+    // Validate if the input is a positive decimal number
+    if (!/^\d+$/.test(decimalInput) || parseInt(decimalInput) <= 0) {
+        alert("Please enter a positive decimal number.");
+        return;
+    }
+
+    // Convert the input to a number
+    let decimalNumber = parseInt(decimalInput);
+
+    // Convert decimal number to binary
+    let binaryEquivalent = decimalToBinary(decimalNumber);
+
+    // Display the result
+    document.getElementById('result').innerText = `Binary equivalent of ${decimalNumber} is ${binaryEquivalent}`;
+}
+
+// Event listener for form submission
+document.getElementById('decimalForm').addEventListener('submit', handleSubmit);
+</script>
+
+</body>
+</html>
